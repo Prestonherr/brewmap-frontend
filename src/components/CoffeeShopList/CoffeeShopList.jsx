@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import CoffeeShopCard from "../CoffeeShopCard/CoffeeShopCard";
 import Pagination from "../Pagination/Pagination";
+import Preloader from "../Preloader/Preloader";
 import "./CoffeeShopList.css";
 
 const RESULTS_PER_PAGE = 10;
@@ -14,15 +15,7 @@ function CoffeeShopList({ coffeeShops, isLoading, error }) {
   }, [coffeeShops]);
 
   if (isLoading) {
-    return (
-      <section className="coffee-shop-list">
-        <div className="coffee-shop-list__container">
-          <p className="coffee-shop-list__message">
-            Searching for coffee shops...
-          </p>
-        </div>
-      </section>
-    );
+    return <Preloader />;
   }
 
   if (error) {
