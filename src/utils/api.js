@@ -1,8 +1,3 @@
-/**
- * Geocodes a city name to get latitude and longitude coordinates
- * @param {string} city - The city name to geocode
- * @returns {Promise<{lat: number, lon: number, displayName: string}>}
- */
 export async function geocodeCity(city) {
   try {
     const response = await fetch(
@@ -38,22 +33,10 @@ export async function geocodeCity(city) {
   }
 }
 
-/**
- * Converts miles to meters for Overpass API
- * @param {number} miles - Distance in miles
- * @returns {number} Distance in meters
- */
 function milesToMeters(miles) {
   return miles * 1609.34;
 }
 
-/**
- * Finds coffee shops near a location using Overpass API
- * @param {number} lat - Latitude
- * @param {number} lon - Longitude
- * @param {number} radiusMiles - Search radius in miles
- * @returns {Promise<Array>} Array of coffee shop objects
- */
 export async function findCoffeeShops(lat, lon, radiusMiles) {
   const radiusMeters = milesToMeters(radiusMiles);
 
@@ -66,12 +49,18 @@ export async function findCoffeeShops(lat, lon, radiusMiles) {
   node
     (around:${radiusMeters},${lat},${lon})
     [amenity=cafe];
+  node
+    (around:${radiusMeters},${lat},${lon})
+    [amenity=coffee_shop];
   way
     (around:${radiusMeters},${lat},${lon})
     [shop=coffee];
   way
     (around:${radiusMeters},${lat},${lon})
     [amenity=cafe];
+  way
+    (around:${radiusMeters},${lat},${lon})
+    [amenity=coffee_shop];
 );
 out center;
 `;
@@ -129,14 +118,6 @@ out center;
   }
 }
 
-/**
- * Calculates distance between two coordinates using Haversine formula
- * @param {number} lat1 - First latitude
- * @param {number} lon1 - First longitude
- * @param {number} lat2 - Second latitude
- * @param {number} lon2 - Second longitude
- * @returns {number} Distance in miles
- */
 function calculateDistance(lat1, lon1, lat2, lon2) {
   const R = 3959; // Earth's radius in miles
   const dLat = ((lat2 - lat1) * Math.PI) / 180;
@@ -151,11 +132,6 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
   return R * c;
 }
 
-/**
- * Builds an address string from OSM tags
- * @param {Object} tags - OSM tags object
- * @returns {string} Formatted address
- */
 function buildAddress(tags) {
   const parts = [];
   if (tags["addr:housenumber"] && tags["addr:street"]) {
@@ -177,11 +153,6 @@ function buildAddress(tags) {
   return parts.length > 0 ? parts.join(", ") : null;
 }
 
-/**
- * Builds an array of relevant tags
- * @param {Object} tags - OSM tags object
- * @returns {Array<string>} Array of tag strings
- */
 function buildTags(tags) {
   const relevantTags = [];
   if (tags.cuisine) relevantTags.push(tags.cuisine);

@@ -16,6 +16,12 @@
   margin: 0 0 2rem 0;
 }
 
+.coffee-shop-list__page-info {
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: #5c4033;
+}
+
 .coffee-shop-list__grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
