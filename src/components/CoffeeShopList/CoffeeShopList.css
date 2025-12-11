@@ -1,0 +1,86 @@
+.coffee-shop-list {
+  padding: 3rem 1.5rem;
+  background-color: #faf8f5;
+  min-height: 400px;
+}
+
+.coffee-shop-list__container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.coffee-shop-list__title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2c1810;
+  margin: 0 0 2rem 0;
+}
+
+.coffee-shop-list__page-info {
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: #5c4033;
+}
+
+.coffee-shop-list__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.coffee-shop-list__message,
+.coffee-shop-list__error {
+  text-align: center;
+  font-size: 1.125rem;
+  color: #5c4033;
+  padding: 2rem;
+}
+
+.coffee-shop-list__error {
+  color: #d32f2f;
+  background-color: #ffebee;
+  border-radius: 8px;
+}
+
+/* Tablet styles (481px - 1024px) */
+@media (max-width: 1024px) {
+  .coffee-shop-list {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .coffee-shop-list__title {
+    font-size: 1.75rem;
+  }
+
+  .coffee-shop-list__grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+}
+
+/* iPhone/Mobile styles (up to 480px) */
+@media (max-width: 480px) {
+  .coffee-shop-list {
+    padding: 2rem 1rem;
+  }
+
+  .coffee-shop-list__title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .coffee-shop-list__page-info {
+    font-size: 1rem;
+  }
+
+  .coffee-shop-list__grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .coffee-shop-list__message,
+  .coffee-shop-list__error {
+    font-size: 1rem;
+    padding: 1.5rem;
+  }
+}

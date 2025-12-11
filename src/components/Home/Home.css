@@ -1,0 +1,43 @@
+.home {
+  min-height: calc(100vh - 200px);
+}
+
+.home__results-header {
+  background-color: #fff;
+  border-bottom: 1px solid #e8d5c4;
+  padding: 1rem 1.5rem;
+}
+
+.home__results-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.home__results-text {
+  font-size: 1rem;
+  color: #5c4033;
+  margin: 0;
+}
+
+.home__results-text strong {
+  color: #2c1810;
+  font-weight: 700;
+}
+
+/* Tablet styles (481px - 1024px) */
+@media (max-width: 1024px) {
+  .home__results-header {
+    padding: 0.875rem 1.5rem;
+  }
+}
+
+/* iPhone/Mobile styles (up to 480px) */
+@media (max-width: 480px) {
+  .home__results-header {
+    padding: 0.75rem 1rem;
+  }
+
+  .home__results-text {
+    font-size: 0.875rem;
+  }
+}
