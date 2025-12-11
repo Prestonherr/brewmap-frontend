@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import SearchForm from "../SearchForm/SearchForm";
 import CoffeeShopList from "../CoffeeShopList/CoffeeShopList";
+import BackToTop from "../BackToTop/BackToTop";
 import {
   geocodeCity,
   findCoffeeShops,
@@ -14,6 +15,17 @@ function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [lastSearchLocation, setLastSearchLocation] = useState(null);
+  const resultsRef = useRef(null);
+
+  // Scroll to results when search starts
+  useEffect(() => {
+    if (isLoading && resultsRef.current) {
+      resultsRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, [isLoading]);
 
   const handleSearch = async (city, radius) => {
     setIsLoading(true);
@@ -76,20 +88,23 @@ function Home() {
   return (
     <main className="home">
       <SearchForm onSearch={handleSearch} onUseLocation={handleUseLocation} />
-      {lastSearchLocation && (
-        <div className="home__results-header">
-          <div className="home__results-container">
-            <p className="home__results-text">
-              Results for: <strong>{lastSearchLocation}</strong>
-            </p>
+      <div ref={resultsRef}>
+        {lastSearchLocation && (
+          <div className="home__results-header">
+            <div className="home__results-container">
+              <p className="home__results-text">
+                Results for: <strong>{lastSearchLocation}</strong>
+              </p>
+            </div>
           </div>
-        </div>
-      )}
-      <CoffeeShopList
-        coffeeShops={coffeeShops}
-        isLoading={isLoading}
-        error={error}
-      />
+        )}
+        <CoffeeShopList
+          coffeeShops={coffeeShops}
+          isLoading={isLoading}
+          error={error}
+        />
+      </div>
+      {(coffeeShops.length > 0 || error) && <BackToTop />}
     </main>
   );
 }

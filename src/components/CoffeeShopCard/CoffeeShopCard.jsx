@@ -1,10 +1,22 @@
 import "./CoffeeShopCard.css";
 
-function CoffeeShopCard({ coffeeShop }) {
+function CoffeeShopCard({ coffeeShop, onClick }) {
   const { name, address, distance, tags } = coffeeShop;
 
   return (
-    <article className="coffee-shop-card">
+    <article
+      className="coffee-shop-card"
+      onClick={onClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onClick();
+        }
+      }}
+      aria-label={`View details for ${name || "coffee shop"}`}
+    >
       <div className="coffee-shop-card__content">
         <h3 className="coffee-shop-card__name">
           {name || "Unnamed Coffee Shop"}

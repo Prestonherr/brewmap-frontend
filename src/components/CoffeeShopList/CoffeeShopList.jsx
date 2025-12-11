@@ -2,12 +2,15 @@ import { useState, useEffect } from "react";
 import CoffeeShopCard from "../CoffeeShopCard/CoffeeShopCard";
 import Pagination from "../Pagination/Pagination";
 import Preloader from "../Preloader/Preloader";
+import CoffeeShopModal from "../CoffeeShopModal/CoffeeShopModal";
 import "./CoffeeShopList.css";
 
 const RESULTS_PER_PAGE = 10;
 
 function CoffeeShopList({ coffeeShops, isLoading, error }) {
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedCoffeeShop, setSelectedCoffeeShop] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Reset to page 1 when coffeeShops change
   useEffect(() => {
@@ -65,6 +68,10 @@ function CoffeeShopList({ coffeeShops, isLoading, error }) {
               <CoffeeShopCard
                 key={shop.id || startIndex + index}
                 coffeeShop={shop}
+                onClick={() => {
+                  setSelectedCoffeeShop(shop);
+                  setIsModalOpen(true);
+                }}
               />
             ))}
           </div>
@@ -74,6 +81,14 @@ function CoffeeShopList({ coffeeShops, isLoading, error }) {
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={setCurrentPage}
+      />
+      <CoffeeShopModal
+        isOpen={isModalOpen}
+        onClose={() => {
+          setIsModalOpen(false);
+          setSelectedCoffeeShop(null);
+        }}
+        coffeeShop={selectedCoffeeShop}
       />
     </>
   );
