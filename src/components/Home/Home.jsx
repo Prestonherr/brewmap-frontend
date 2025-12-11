@@ -17,7 +17,6 @@ function Home() {
   const [lastSearchLocation, setLastSearchLocation] = useState(null);
   const resultsRef = useRef(null);
 
-  // Scroll to results when search starts
   useEffect(() => {
     if (isLoading && resultsRef.current) {
       resultsRef.current.scrollIntoView({
@@ -34,10 +33,8 @@ function Home() {
     setLastSearchLocation(null);
 
     try {
-      // First, geocode the city to get coordinates
       const location = await geocodeCity(city);
 
-      // Then, find coffee shops near that location
       const shops = await findCoffeeShops(location.lat, location.lon, radius);
 
       setCoffeeShops(shops);
@@ -59,16 +56,13 @@ function Home() {
     setLastSearchLocation(null);
 
     try {
-      // Get user's current location
       const userLocation = await getUserLocation();
 
-      // Reverse geocode to get a location name for display
       const locationInfo = await reverseGeocode(
         userLocation.lat,
         userLocation.lon
       );
 
-      // Find coffee shops near user's location
       const shops = await findCoffeeShops(
         userLocation.lat,
         userLocation.lon,

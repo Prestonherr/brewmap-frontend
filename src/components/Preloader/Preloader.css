@@ -38,3 +38,32 @@
   margin: 0;
   text-align: center;
 }
+
+/* Tablet styles (481px - 1024px) */
+@media (max-width: 1024px) {
+  .preloader {
+    padding: 2.5rem 1.5rem;
+  }
+}
+
+/* iPhone/Mobile styles (up to 480px) */
+@media (max-width: 480px) {
+  .preloader {
+    padding: 2rem 1rem;
+    min-height: 300px;
+  }
+
+  .preloader__container {
+    gap: 1.25rem;
+  }
+
+  .circle-preloader {
+    width: 40px;
+    height: 40px;
+    border-width: 3px;
+  }
+
+  .preloader__text {
+    font-size: 1rem;
+  }
+}

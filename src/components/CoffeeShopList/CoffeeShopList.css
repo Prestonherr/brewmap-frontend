@@ -42,8 +42,45 @@
   border-radius: 8px;
 }
 
-@media (max-width: 768px) {
+/* Tablet styles (481px - 1024px) */
+@media (max-width: 1024px) {
+  .coffee-shop-list {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .coffee-shop-list__title {
+    font-size: 1.75rem;
+  }
+
+  .coffee-shop-list__grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+}
+
+/* iPhone/Mobile styles (up to 480px) */
+@media (max-width: 480px) {
+  .coffee-shop-list {
+    padding: 2rem 1rem;
+  }
+
+  .coffee-shop-list__title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .coffee-shop-list__page-info {
+    font-size: 1rem;
+  }
+
   .coffee-shop-list__grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .coffee-shop-list__message,
+  .coffee-shop-list__error {
+    font-size: 1rem;
+    padding: 1.5rem;
   }
 }

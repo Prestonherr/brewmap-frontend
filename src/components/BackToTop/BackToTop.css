@@ -22,9 +22,20 @@
   transform: translateY(0);
 }
 
-@media (max-width: 768px) {
+/* Tablet styles (481px - 1024px) */
+@media (max-width: 1024px) {
   .back-to-top {
+    margin: 1.5rem auto;
+  }
+}
+
+/* iPhone/Mobile styles (up to 480px) */
+@media (max-width: 480px) {
+  .back-to-top {
+    margin: 1.5rem auto;
     padding: 0.875rem 1.5rem;
     font-size: 0.875rem;
+    width: calc(100% - 2rem);
+    max-width: 300px;
   }
 }

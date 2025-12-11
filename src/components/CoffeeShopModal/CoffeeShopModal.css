@@ -137,29 +137,61 @@
   text-decoration: underline;
 }
 
-@media (max-width: 768px) {
+/* Tablet styles (481px - 1024px) */
+@media (max-width: 1024px) {
+  .coffee-shop-modal__content {
+    max-width: 90%;
+  }
+
+  .coffee-shop-modal__title {
+    font-size: 1.75rem;
+  }
+}
+
+/* iPhone/Mobile styles (up to 480px) */
+@media (max-width: 480px) {
   .coffee-shop-modal {
-    padding: 1rem;
+    padding: 0.5rem;
   }
 
   .coffee-shop-modal__content {
     max-height: 95vh;
+    max-width: 100%;
+    border-radius: 12px;
   }
 
   .coffee-shop-modal__body {
-    padding: 2rem 1.5rem 1.5rem;
+    padding: 1.5rem 1rem 1rem;
   }
 
   .coffee-shop-modal__title {
-    font-size: 1.5rem;
-    padding-right: 2.5rem;
+    font-size: 1.25rem;
+    padding-right: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .coffee-shop-modal__section {
+    margin-bottom: 1.5rem;
+  }
+
+  .coffee-shop-modal__section-title {
+    font-size: 1rem;
+  }
+
+  .coffee-shop-modal__text {
+    font-size: 0.875rem;
   }
 
   .coffee-shop-modal__close-button {
-    top: 0.75rem;
-    right: 0.75rem;
-    width: 36px;
-    height: 36px;
-    font-size: 1.75rem;
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 32px;
+    height: 32px;
+    font-size: 1.5rem;
+  }
+
+  .coffee-shop-modal__tag {
+    font-size: 0.75rem;
+    padding: 0.375rem 0.75rem;
   }
 }
