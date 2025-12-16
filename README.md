@@ -1,6 +1,6 @@
 # BrewMap ☕️🗺️
 
-BrewMap is a coffee shop finder application designed to help users explore local coffee culture. The app allows users to search for coffee shops by city name and displays results within a customizable radius (1-25 miles). Built as a frontend-focused project with architecture designed for future full-stack expansion, including user authentication, saved favorites, and reviews
+BrewMap is a coffee shop finder application designed to help users explore local coffee culture. The app allows users to search for coffee shops by city name and displays results within a customizable radius (1-25 miles). Built as a frontend-focused project with architecture designed for future full-stack expansion, including user authentication, saved favorites, and reviews.
 
 ## 🌐 Deployment
 
