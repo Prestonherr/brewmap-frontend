@@ -72,7 +72,7 @@
 }
 
 .coffee-shop-modal__body {
-  padding: 2.5rem 2rem 2rem;
+  padding: 2.5rem 2rem 1.5rem;
 }
 
 .coffee-shop-modal__title {
@@ -147,6 +147,54 @@
   text-decoration: underline;
 }
 
+.coffee-shop-modal__actions {
+  padding: 1.5rem 2rem 2rem;
+  border-top: 1px solid #f5ebe0;
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.coffee-shop-modal__save-button,
+.coffee-shop-modal__delete-button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.coffee-shop-modal__save-button {
+  background-color: #8b6f47;
+  color: #fff;
+}
+
+.coffee-shop-modal__save-button:hover:not(:disabled) {
+  background-color: #6b5537;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(139, 111, 71, 0.3);
+}
+
+.coffee-shop-modal__delete-button {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.coffee-shop-modal__delete-button:hover:not(:disabled) {
+  background-color: #c82333;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+}
+
+.coffee-shop-modal__save-button:disabled,
+.coffee-shop-modal__delete-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
 @media (max-width: 1024px) {
   .coffee-shop-modal__content {
     max-width: 90%;
@@ -176,6 +224,16 @@
 
   .coffee-shop-modal__body {
     padding: 1.5rem 1rem 1rem;
+  }
+
+  .coffee-shop-modal__actions {
+    padding: 1rem;
+    flex-direction: column;
+  }
+
+  .coffee-shop-modal__save-button,
+  .coffee-shop-modal__delete-button {
+    width: 100%;
   }
 
   .coffee-shop-modal__title {

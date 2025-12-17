@@ -1,8 +1,17 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import coffeeLogo from "../../images/coffee-logo.png";
+import { saveCoffeeShop, deleteCoffeeShop } from "../../utils/backend-api";
 import "./CoffeeShopModal.css";
 
-function CoffeeShopModal({ isOpen, onClose, coffeeShop }) {
+function CoffeeShopModal({ isOpen, onClose, coffeeShop, isSaved, onSave, onDelete }) {
+  const [isSaving, setIsSaving] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [savedStatus, setSavedStatus] = useState(isSaved);
+
+  useEffect(() => {
+    setSavedStatus(isSaved);
+  }, [isSaved]);
+
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === "Escape") {
@@ -25,7 +34,67 @@ function CoffeeShopModal({ isOpen, onClose, coffeeShop }) {
     return null;
   }
 
-  const { name, address, distance, tags, lat, lon } = coffeeShop;
+  const { name, address, distance, tags, lat, lon, id, osmId } = coffeeShop;
+
+  const isLoggedIn = () => {
+    return !!localStorage.getItem("token");
+  };
+
+  const handleSave = () => {
+    if (!isLoggedIn()) {
+      alert("Please log in to save coffee shops");
+      return;
+    }
+
+    setIsSaving(true);
+    const coffeeShopData = {
+      name: name || "Unnamed Coffee Shop",
+      address: address || "",
+      lat,
+      lon,
+      distance,
+      tags: tags || {},
+      osmId: osmId || id?.toString() || "",
+    };
+
+    saveCoffeeShop(coffeeShopData)
+      .then(() => {
+        setSavedStatus(true);
+        if (onSave) onSave();
+      })
+      .catch((error) => {
+        console.error("Error saving coffee shop:", error);
+        alert(error.message || "Failed to save coffee shop");
+      })
+      .finally(() => {
+        setIsSaving(false);
+      });
+  };
+
+  const handleDelete = () => {
+    if (!coffeeShop._id) {
+      alert("This coffee shop is not saved");
+      return;
+    }
+
+    if (!window.confirm("Are you sure you want to delete this saved coffee shop?")) {
+      return;
+    }
+
+    setIsDeleting(true);
+    deleteCoffeeShop(coffeeShop._id)
+      .then(() => {
+        setSavedStatus(false);
+        if (onDelete) onDelete();
+      })
+      .catch((error) => {
+        console.error("Error deleting coffee shop:", error);
+        alert(error.message || "Failed to delete coffee shop");
+      })
+      .finally(() => {
+        setIsDeleting(false);
+      });
+  };
 
   return (
     <div className="coffee-shop-modal" onClick={onClose}>
@@ -92,6 +161,27 @@ function CoffeeShopModal({ isOpen, onClose, coffeeShop }) {
             </div>
           )}
         </div>
+        {isLoggedIn() && (
+          <div className="coffee-shop-modal__actions">
+            {savedStatus || coffeeShop._id ? (
+              <button
+                className="coffee-shop-modal__delete-button"
+                onClick={handleDelete}
+                disabled={isDeleting}
+              >
+                {isDeleting ? "Deleting..." : "Delete"}
+              </button>
+            ) : (
+              <button
+                className="coffee-shop-modal__save-button"
+                onClick={handleSave}
+                disabled={isSaving}
+              >
+                {isSaving ? "Saving..." : "Save"}
+              </button>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

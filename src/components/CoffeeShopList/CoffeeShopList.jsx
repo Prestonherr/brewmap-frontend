@@ -3,6 +3,7 @@ import CoffeeShopCard from "../CoffeeShopCard/CoffeeShopCard";
 import Pagination from "../Pagination/Pagination";
 import Preloader from "../Preloader/Preloader";
 import CoffeeShopModal from "../CoffeeShopModal/CoffeeShopModal";
+import { getSavedCoffeeShops } from "../../utils/backend-api";
 import { RESULTS_PER_PAGE } from "../../config/constants.js";
 import "./CoffeeShopList.css";
 
@@ -10,10 +11,70 @@ function CoffeeShopList({ coffeeShops, isLoading, error }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCoffeeShop, setSelectedCoffeeShop] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [savedCoffeeShops, setSavedCoffeeShops] = useState([]);
 
   useEffect(() => {
     setCurrentPage(1);
   }, [coffeeShops]);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      getSavedCoffeeShops()
+        .then((saved) => {
+          setSavedCoffeeShops(saved || []);
+        })
+        .catch((err) => {
+          console.error("Error loading saved coffee shops:", err);
+        });
+    }
+  }, []);
+
+  const checkIfSaved = (coffeeShop) => {
+    if (coffeeShop._id) return true; // Already saved (has database ID)
+    
+    // Check if this coffee shop matches any saved one by coordinates and name
+    return savedCoffeeShops.some(
+      (saved) =>
+        saved.name === coffeeShop.name &&
+        Math.abs(saved.lat - coffeeShop.lat) < 0.0001 &&
+        Math.abs(saved.lon - coffeeShop.lon) < 0.0001
+    );
+  };
+
+  const handleSave = () => {
+    // Refresh saved coffee shops list
+    const token = localStorage.getItem("token");
+    if (token) {
+      getSavedCoffeeShops()
+        .then((saved) => {
+          setSavedCoffeeShops(saved || []);
+        })
+        .catch((err) => {
+          console.error("Error loading saved coffee shops:", err);
+        });
+    }
+  };
+
+  const handleDelete = () => {
+    // Remove from saved list and refresh
+    const token = localStorage.getItem("token");
+    if (token) {
+      getSavedCoffeeShops()
+        .then((saved) => {
+          setSavedCoffeeShops(saved || []);
+          // If the deleted shop was the selected one, update it
+          if (selectedCoffeeShop?._id) {
+            const updatedShop = { ...selectedCoffeeShop };
+            delete updatedShop._id;
+            setSelectedCoffeeShop(updatedShop);
+          }
+        })
+        .catch((err) => {
+          console.error("Error loading saved coffee shops:", err);
+        });
+    }
+  };
 
   if (isLoading) {
     return <Preloader />;
@@ -86,6 +147,9 @@ function CoffeeShopList({ coffeeShops, isLoading, error }) {
           setSelectedCoffeeShop(null);
         }}
         coffeeShop={selectedCoffeeShop}
+        isSaved={selectedCoffeeShop ? checkIfSaved(selectedCoffeeShop) : false}
+        onSave={handleSave}
+        onDelete={handleDelete}
       />
     </>
   );
