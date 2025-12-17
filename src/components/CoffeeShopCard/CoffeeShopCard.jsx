@@ -1,14 +1,16 @@
 import coffeeLogo from "../../images/coffee-logo.png";
+import { buildTags } from "../../utils/helpers";
 import "./CoffeeShopCard.css";
 
 function CoffeeShopCard({ coffeeShop, onClick }) {
   const { name, address, distance, tags } = coffeeShop;
 
   // Handle tags as either array (from search) or object (from saved)
+  // Use the same `buildTags` logic as search results to keep tag display consistent
   const displayTags = Array.isArray(tags)
     ? tags
     : tags && typeof tags === "object"
-      ? Object.values(tags).filter(Boolean)
+      ? buildTags(tags)
       : [];
 
   return (
