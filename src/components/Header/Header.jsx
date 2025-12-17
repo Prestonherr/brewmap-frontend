@@ -48,7 +48,9 @@ function Header() {
             </Link>
             {loggedIn ? (
               <>
-                <span className="header__user-name">{user?.name}</span>
+                <Link to="/profile" className="header__user-name">
+                  {user?.name}
+                </Link>
                 <button
                   className="header__logout-button"
                   onClick={handleLogout}

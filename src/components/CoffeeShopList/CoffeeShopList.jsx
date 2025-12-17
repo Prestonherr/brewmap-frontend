@@ -25,14 +25,18 @@ function CoffeeShopList({ coffeeShops, isLoading, error }) {
           setSavedCoffeeShops(saved || []);
         })
         .catch((err) => {
-          console.error("Error loading saved coffee shops:", err);
+          // Silently fail if backend is not available
+          // Only log to console, don't show error to user
+          if (process.env.NODE_ENV === "development") {
+            console.error("Error loading saved coffee shops:", err);
+          }
         });
     }
   }, []);
 
   const checkIfSaved = (coffeeShop) => {
     if (coffeeShop._id) return true; // Already saved (has database ID)
-    
+
     // Check if this coffee shop matches any saved one by coordinates and name
     return savedCoffeeShops.some(
       (saved) =>

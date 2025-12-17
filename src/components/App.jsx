@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./Header/Header";
 import Home from "./Home/Home";
 import About from "./About/About";
+import Profile from "./Profile/Profile";
 import Footer from "./Footer/Footer";
 import {
   geocodeCity,
@@ -133,6 +134,7 @@ function App() {
             }
           />
           <Route path="/about" element={<About />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
         <Footer />
       </div>

@@ -82,7 +82,8 @@ out center;
             lat: centerLat,
             lon: centerLon,
             distance: distance,
-            tags: buildTags(tags),
+            tags: buildTags(tags), // Array for display
+            originalTags: tags, // Original object for saving
           };
         })
         .filter((shop) => shop !== null)

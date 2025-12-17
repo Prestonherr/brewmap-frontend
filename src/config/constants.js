@@ -27,4 +27,4 @@ export const SEARCH_RADIUS_OPTIONS = [1, 3, 5, 10, 15, 25];
 export const DEFAULT_SEARCH_RADIUS = 5;
 
 // Backend API
-export const API_BASE_URL = "http://localhost:3000/api";
+export const API_BASE_URL = "http://localhost:3001/api";

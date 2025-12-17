@@ -4,6 +4,13 @@ import "./CoffeeShopCard.css";
 function CoffeeShopCard({ coffeeShop, onClick }) {
   const { name, address, distance, tags } = coffeeShop;
 
+  // Handle tags as either array (from search) or object (from saved)
+  const displayTags = Array.isArray(tags)
+    ? tags
+    : tags && typeof tags === "object"
+      ? Object.values(tags).filter(Boolean)
+      : [];
+
   return (
     <article
       className="coffee-shop-card"
@@ -33,9 +40,9 @@ function CoffeeShopCard({ coffeeShop, onClick }) {
             {distance.toFixed(1)} miles away
           </p>
         )}
-        {tags && tags.length > 0 && (
+        {displayTags.length > 0 && (
           <div className="coffee-shop-card__tags">
-            {tags.map((tag, index) => (
+            {displayTags.map((tag, index) => (
               <span key={index} className="coffee-shop-card__tag">
                 {tag}
               </span>

@@ -120,6 +120,14 @@
   color: #d4a574;
   font-weight: 500;
   padding: 0.5rem 0;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.header__user-name:hover {
+  color: #fff;
+  opacity: 0.9;
 }
 
 @media (max-width: 1024px) {

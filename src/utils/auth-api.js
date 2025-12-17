@@ -71,3 +71,39 @@ export const getCurrentUser = () => {
   return userStr ? JSON.parse(userStr) : null;
 };
 
+// Update user profile
+export const updateUserProfile = (name, email, password) => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    return Promise.reject(new Error("Not authenticated"));
+  }
+
+  const body = {};
+  if (name) body.name = name;
+  if (email) body.email = email;
+  if (password) body.password = password;
+
+  return fetch(`${API_BASE_URL}/users/me`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(body),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        return response.json().then((err) => {
+          throw new Error(err.error?.message || "Update failed");
+        });
+      }
+      return response.json();
+    })
+    .then((data) => {
+      // Update user in localStorage
+      if (data.user) {
+        localStorage.setItem("user", JSON.stringify(data.user));
+      }
+      return data;
+    });
+};

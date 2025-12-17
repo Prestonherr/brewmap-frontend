@@ -59,10 +59,7 @@ function AuthModal({ isOpen, onClose, mode = "login", onAuthSuccess }) {
 
   return (
     <div className="auth-modal" onClick={onClose}>
-      <div
-        className="auth-modal__content"
-        onClick={(e) => e.stopPropagation()}
-      >
+      <div className="auth-modal__content" onClick={(e) => e.stopPropagation()}>
         <button
           className="auth-modal__close-button"
           onClick={onClose}
@@ -145,4 +142,3 @@ function AuthModal({ isOpen, onClose, mode = "login", onAuthSuccess }) {
 }
 
 export default AuthModal;
-
