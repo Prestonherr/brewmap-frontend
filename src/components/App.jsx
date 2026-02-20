@@ -67,13 +67,13 @@ function App() {
 
       const locationInfo = await reverseGeocode(
         userLocation.lat,
-        userLocation.lon
+        userLocation.lon,
       );
 
       const shops = await findCoffeeShops(
         userLocation.lat,
         userLocation.lon,
-        radius
+        radius,
       );
 
       setCoffeeShops(shops);
@@ -116,7 +116,7 @@ function App() {
   };
 
   return (
-    <Router basename="/brewmap-frontend">
+    <Router>
       <div className="app">
         <Header />
         <Routes>
