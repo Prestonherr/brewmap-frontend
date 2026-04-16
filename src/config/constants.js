@@ -28,5 +28,5 @@ export const DEFAULT_SEARCH_RADIUS = 5;
 
 // Backend API
 export const API_BASE_URL = import.meta.env.PROD
-  ? "https://api.brewmap.hs.vc/api"
+  ? "https://api.brewmap.root.sx/api"
   : "http://localhost:3001/api";
