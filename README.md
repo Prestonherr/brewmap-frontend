@@ -4,7 +4,7 @@ BrewMap is a coffee shop finder application that helps users explore local coffe
 
 ## 🌐 Deployment
 
-Try the application: [BrewMap](https://brewmap.hs.vc/)
+Try the application: [BrewMap](https://brewmap.root.sx/)
 
 ## Backend
 
